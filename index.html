@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- 语言为中文 -->
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日快乐!</title>
+    <style>
+        body {
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4, #ffd1ff);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        h1 {
+            color: rgb(83, 64, 64);
+            font-size: 3em;
+            margin-top: 50px;
+            animation: fadeIn 2s ease-in;
+            /* 两秒内淡入 */
+        }
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50% 50% 60% 60%;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            animation: float 5s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .string {
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: transparent;
+        }
+        .string::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background-color: black;
+            left: 0;
+            animation: wave 1s infinite ease-in-out;
+        }
+        .star {
+            position: absolute;
+            width: 20px;  /* 控制五角星的大小 */
+            height: 20px; /* 控制五角星的大小 */
+            background-color: rgb(255, 223, 0);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle 1s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 生日快乐！🎂</h1>
+    <script>
+        function createBalloon() {
+            const balloon = document.createElement("div");
+            balloon.className = "balloon";
+            balloon.style.left = Math.random() * window.innerWidth + "px";
+            balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 80%)`;
+            balloon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            
+            const string = document.createElement("div");
+            string.className = "string";
+            balloon.appendChild(string);
+            
+            document.body.appendChild(balloon);
+            setTimeout(() => document.body.removeChild(balloon), 5000);
+        }
+
+        function createStar() {
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.top = Math.random() * window.innerHeight + "px";
+            star.style.left = Math.random() * window.innerWidth + "px";
+            star.style.animationDuration = (Math.random() * 2 + 1) + "s"; // 随机闪烁速度
+            document.body.appendChild(star);
+
+            // 设置星星在几秒钟后删除，避免页面元素过多
+            setTimeout(() => document.body.removeChild(star), 5000);
+}
+
+        setInterval(createStar, 200); // 每200ms创建一个星星
+
+        setInterval(createBalloon, 500);
+    </script>
+</body>
+</html>
